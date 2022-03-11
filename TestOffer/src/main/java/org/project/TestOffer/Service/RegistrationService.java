@@ -19,10 +19,13 @@ public class RegistrationService {
 	@Autowired
 	UserRepository userRepository;
 	
-	//Save a user
+	//Register a user
 	public User register(User user) {
 		int age = Period.between(user.getBirthdate(), LocalDate.now()).getYears();
 		
+		if (user.getName() == null || user.getCountryOfResidence() == null || user.getBirthdate() == null) {
+			throw new UserRegistrationException("Invalide input");
+		}
 		if (age < 18) {
 			throw new UserRegistrationException("Invalide input: The user must be an adult");
 		} else if (!(user.getCountryOfResidence().toUpperCase().equals(Country.FRANCE.toString()))) {
@@ -32,8 +35,10 @@ public class RegistrationService {
 	    return userRepository.save(user);
 	}
 	
-	public User findUser(Long userId) {
-		return userRepository.findById(userId)
+
+	//Find the details of registered user
+	public User userDetails(Long userId) {
+	    return userRepository.findById(userId)
 	            .orElseThrow(() -> new UserRegistrationException("User not found for this id ::" + userId));
 	}
 	

@@ -32,7 +32,7 @@ class TestOfferApplicationTests {
 		User expectedUser;
 		
 		//act
-		expectedUser = service.findUser(1L);
+		expectedUser = service.userDetails(1L);
 		
 		//assert
 		assertThat(user.getId()).isEqualTo(expectedUser.getId());
@@ -60,6 +60,32 @@ class TestOfferApplicationTests {
 		Exception exception = assertThrows(UserRegistrationException.class, () -> {
 			service.register(user);
 		});
+	}
+	
+	@Test
+	public void should_throw_exception_when_user_not_found() {
+		//arrange
+		Long userId = 10L;
+		
+		//assert
+		assertThrows(UserRegistrationException.class, () -> {
+			service.userDetails(userId);
+		});
+	}
+	
+	@Test
+	public void should_find_user_details() {
+		//arrange
+		Long userId = 1L;
+		User expectedUser;
+		User actualUser = new User(1L, "admin", LocalDate.of(2000, 5, 13), "france", "034895759", "female");
+
+		//act
+		service.register(actualUser);
+		expectedUser = service.userDetails(userId);
+
+		//assert
+		assertThat(actualUser.getId()).isEqualTo(expectedUser.getId());
 	}
 
 	@Test
