@@ -87,6 +87,8 @@ class TestOfferApplicationTests {
 		//assert
 		assertThat(actualUser.getId()).isEqualTo(expectedUser.getId());
 	}
+	
+	
 
 	@Test
 	void contextLoads() {

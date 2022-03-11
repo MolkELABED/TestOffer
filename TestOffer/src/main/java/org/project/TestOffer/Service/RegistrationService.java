@@ -34,7 +34,6 @@ public class RegistrationService {
 		
 	    return userRepository.save(user);
 	}
-	
 
 	//Find the details of registered user
 	public User userDetails(Long userId) {

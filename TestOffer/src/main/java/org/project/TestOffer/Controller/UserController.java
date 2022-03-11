@@ -28,6 +28,7 @@ public class UserController {
 		}
 	}
 	
+	
 	//Find the details of registered user
 	@GetMapping(value="/user/{userId}")
 	public ResponseEntity<?> userDetails(@PathVariable("userId") Long userId) {
